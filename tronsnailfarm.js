@@ -2,6 +2,8 @@ var contractAddress="TKr9aX2g8FDzCp3ZkGM88WWD8AiMh57ga8" // shasta 1
 
 /* tronWeb DETECTION */
 
+var tronWeb;
+
 async function waitForTronWeb(){
     if (typeof(window.tronWeb) === 'undefined') {
         console.log('Waiting for tronWeb...');
