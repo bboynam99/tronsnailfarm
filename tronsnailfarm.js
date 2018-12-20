@@ -4,6 +4,8 @@ var contractAddress="TKr9aX2g8FDzCp3ZkGM88WWD8AiMh57ga8" // shasta 1
 
 //var modal2 = document.getElementById("modal2");
 
+var tronWeb;
+
 window.onload = function() {
   if (!window.tronWeb) {
     const HttpProvider = TronWeb.providers.HttpProvider;
@@ -11,7 +13,7 @@ window.onload = function() {
     const solidityNode = new HttpProvider('https://api.trongrid.io');
     const eventServer = 'https://api.trongrid.io/';
     
-    const tronWeb = new TronWeb(
+    tronWeb = new TronWeb(
         fullNode,
         solidityNode,
         eventServer,
