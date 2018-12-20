@@ -1621,7 +1621,7 @@ function hatcherySnail(callback){
 
 function hasSlug(callback){
     myContract.hasSlug().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1733,7 +1733,7 @@ function ComputeMyEgg(adr,callback){
    
 function GetLettuce(adr,callback){
     myContract.GetLettuce(adr).call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1765,7 +1765,7 @@ function GetMyEgg(callback){
 
 function GetSlug(adr,callback){
 	myContract.GetSlug(adr).call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1789,7 +1789,7 @@ function snailmasterReq(callback){
 
 function currentSpiderOwner(callback){
 	myContract.currentSpiderOwner().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1813,7 +1813,7 @@ function ComputeMyShare(callback){
 
 function currentLeader(callback){
     myContract.currentLeader().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1821,7 +1821,7 @@ function currentLeader(callback){
 
 function currentSnailmaster(callback){
 	myContract.currentSnailmaster().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1901,7 +1901,7 @@ function squirrelReq(callback){
 
 function gameActive(callback){
 	myContract.gameActive().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1909,7 +1909,7 @@ function gameActive(callback){
 
 function currentSquirrelOwner(callback){
 	myContract.currentSquirrelOwner().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1917,7 +1917,7 @@ function currentSquirrelOwner(callback){
 
 function currentTadpoleOwner(callback){
 	myContract.currentTadpoleOwner().call().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
