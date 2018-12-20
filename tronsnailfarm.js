@@ -10,7 +10,7 @@ async function waitForTronWeb(){
         console.log('Waiting for tronWeb...');
         setTimeout(waitForTronWeb, 1000);
     } else {
-        myContract = tronWeb.contract().at(contractAddress);
+        myContract = await tronWeb.contract().at(contractAddress);
 		controlLoop();
 		controlLoopFast();
 		controlLoopSlow();
