@@ -1923,6 +1923,14 @@ function currentTadpoleOwner(callback){
     });
 }  
 
+function thronePot(callback){
+	myContract.thronePot().call().then(result => {
+        callback(tronWeb.toDecimal(result));
+    }).catch((err) => {
+        console.log(err)
+    });
+}  
+
 /* CONTRACT ABI */
 //
 /*
