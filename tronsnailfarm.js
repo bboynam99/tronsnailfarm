@@ -7,7 +7,7 @@ var myContract;
 
 async function waitForTronWeb(){
     if (typeof(window.tronWeb) === 'undefined') {
-        console.log('Waiting for tronWeb...');
+        //console.log('Waiting for tronWeb...');
         setTimeout(waitForTronWeb, 1000);
     } else {
         myContract = await tronWeb.contract().at(contractAddress);
@@ -156,7 +156,7 @@ var d_leaderboard = [
 //Initiates loops
 function main(){
 	waitForTronWeb();
-    //console.log('Main loop started.');
+    ////console.log('Main loop started.');
 }
 
 //Main loop on 4 seconds
@@ -174,7 +174,7 @@ function controlLoopFast(){
 //Another loop on 1 minute for a slow, heavy leaderboard update
 function controlLoopSlow(){
 	refreshDataSlow();
-	//////console.log("slow loop");
+	////////console.log("slow loop");
 	setTimeout(controlLoopSlow,60000);
 }
 
@@ -294,7 +294,7 @@ function refreshDataSlow(){
 	showLeaderboard();
 	
 	slowupdatePlayerEgg();
-	//////console.log("refreshed leaderboard fully");
+	////////console.log("refreshed leaderboard fully");
 }
 	
 
@@ -374,30 +374,30 @@ function showLeaderboard() {
 		for(j = 0; j < 5; j++) {
 			if(d_leaderboard[j].rank == i) {
 				leaderboarddoc.innerHTML += "#" + d_leaderboard[j].rank + " | " + formattrxAdr(d_leaderboard[j].address) + " | " + d_leaderboard[j].hatchery + " Snails | " + d_leaderboard[j].egg + " Eggs | " + d_leaderboard[j].red + " Reds | ";
-				//////console.log("updated rank " + i + " with index " + j);
+				////////console.log("updated rank " + i + " with index " + j);
 				if(d_leaderboard[j].boost1 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/spider.png' height='32'>";
-					//////console.log(d_leaderboard[j] + " has spidersqueen");
+					////////console.log(d_leaderboard[j] + " has spidersqueen");
 				}
 				if(d_leaderboard[j].boost2 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/squirrel.png' height='32'>";
-					//////console.log(d_leaderboard[j] + " has squirrel");
+					////////console.log(d_leaderboard[j] + " has squirrel");
 				}
 				if(d_leaderboard[j].boost3 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/tadpole.png' height='32'>";
-					//////console.log(d_leaderboard[j] + " has tadpole");
+					////////console.log(d_leaderboard[j] + " has tadpole");
 				}
 				if(d_leaderboard[j].boost4 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/lettuce.png' height='32'>";
-					////console.log(d_leaderboard[j] + " has lettuce");
+					//////console.log(d_leaderboard[j] + " has lettuce");
 				}
 				if(d_leaderboard[j].boost5 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/carrot.png' height='32'>";
-					//////console.log(d_leaderboard[j] + " has carrot");
+					////////console.log(d_leaderboard[j] + " has carrot");
 				}
 				if(d_leaderboard[j].boost6 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/slug.png' height='32'>";
-					//////console.log(d_leaderboard[j] + " has slug");
+					////////console.log(d_leaderboard[j] + " has slug");
 				}
 				leaderboarddoc.innerHTML += "<br>";
 			}
@@ -409,7 +409,7 @@ function showLeaderboard() {
 function slowupdateLeaderboard() {
 	for(i = 0; i < 5; i++) {
 		var lead = d_leaderboard[i];
-		//////console.log(lead);
+		////////console.log(lead);
 		var _boost4 = false;
 		var _boost5 = false;
 		var _boost6 = false;
@@ -419,13 +419,13 @@ function slowupdateLeaderboard() {
 		} else {
 			d_leaderboard[i].boost1 = false;
 		}
-		//////console.log("checked spiderowner for " + i);
+		////////console.log("checked spiderowner for " + i);
 		if(lead.address == c_squirrelowner) {
 			d_leaderboard[i].boost2 = true;
 		}  else {
 			d_leaderboard[i].boost2 = false;
 		}
-		//////console.log("checked squirrelowner for " + i);
+		////////console.log("checked squirrelowner for " + i);
 		if(lead.address == c_tadpoleowner) {
 			d_leaderboard[i].boost3 = true;
 		}  else {
@@ -440,7 +440,7 @@ function slowupdateLeaderboard() {
 		var topGuy = 0;
 		for(j = 0; j < 5; j++) {
 			if(avoidNext[j] != 1){
-				//console.log("avoidNext[" + j + "] evaluated to != 1");
+				////console.log("avoidNext[" + j + "] evaluated to != 1");
 				if(d_leaderboard[j].hatchery > topHatch){
 					topHatch = d_leaderboard[j].hatchery;
 					topGuy = j;
@@ -448,9 +448,9 @@ function slowupdateLeaderboard() {
 			}
 		}
 		d_leaderboard[topGuy].rank = k;
-		//console.log("New rank " + k + " : " + d_leaderboard[topGuy].address);
+		////console.log("New rank " + k + " : " + d_leaderboard[topGuy].address);
 		avoidNext[topGuy] = 1;
-		//console.log("Next time, avoid indice " + topGuy);
+		////console.log("Next time, avoid indice " + topGuy);
 	}
 	
 	showLeaderboard();
@@ -460,8 +460,8 @@ function slowupdateLeaderboard() {
 function checkLeaderboard0(){
 	GetSnail(d_leaderboard[0].address, function(result) {
 		d_leaderboard[0].hatchery = result;
-		////console.log(result);
-		////console.log("hatchery of " + d_leaderboard[0].address + " = " + d_leaderboard[0].hatchery);
+		//////console.log(result);
+		//////console.log("hatchery of " + d_leaderboard[0].address + " = " + d_leaderboard[0].hatchery);
 	});
 }
 
@@ -551,13 +551,13 @@ function checkLeaderRed4(){
 
 function checkLeaderLettuce0(){
 	GetLettuce(d_leaderboard[0].address, function(result) {
-		////console.log(d_leaderboard[0].address + " lettuce result is " + result);
+		//////console.log(d_leaderboard[0].address + " lettuce result is " + result);
 		if(result > 0) {
 			d_leaderboard[0].boost4 = true;
-			////console.log("We have a lettuce!");
+			//////console.log("We have a lettuce!");
 		} else {
 			d_leaderboard[0].boost4 = false;
-			////console.log("No lettuce here.");
+			//////console.log("No lettuce here.");
 		}
 	});
 }
@@ -937,11 +937,11 @@ function updateContractBalance(){
 	var contractbalancedoc = document.getElementById('contractbalance');
 	tronWeb.trx.getBalance(contractAddress, function(error, result) {
 		if(!error) {
-			//////////console.log(result);
+			////////////console.log(result);
 			a_contractBalance = formattrxValue(tronWeb.fromSun(result, 'trx'))
 			contractbalancedoc.textContent = a_contractBalance; 
 		} else {
-			////////console.log("didn't work");
+			//////////console.log("didn't work");
 		}
 	});
 }
@@ -1410,7 +1410,7 @@ function BuyStartingSnail(trx, callback){
     myContract.BuyStartingSnail({callValue: trx}).send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1418,7 +1418,7 @@ function FundTree(trx, callback){
 	myContract.FundTree({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1426,7 +1426,7 @@ function BuyEgg(trx, callback){
 	myContract.BuyEgg({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1434,7 +1434,7 @@ function GrabRedHarvest(trx,callback){
 	myContract.GrabRedHarvest({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1442,7 +1442,7 @@ function FindCarrot(trx, callback){
 	myContract.FindCarrot({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1451,7 +1451,7 @@ function HatchEgg(trx, callback){
 	myContract.HatchEgg({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1459,7 +1459,7 @@ function BecomeTadpolePrince(trx, callback){
 	myContract.BecomeTadpolePrince({callValue: trx}).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1467,7 +1467,7 @@ function UseRedEgg(_red, callback){
     myContract.UseRedEgg(_red).send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1475,7 +1475,7 @@ function FindLettuce(callback){
 	myContract.FindLettuce().send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1483,7 +1483,7 @@ function SellEgg(callback){
 	myContract.SellEgg().send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1491,7 +1491,7 @@ function BecomeSpiderQueen(callback){
 	myContract.BecomeSpiderQueen().send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1499,7 +1499,7 @@ function WithdrawBalance(callback){
 	myContract.WithdrawBalance().send().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1507,7 +1507,7 @@ function ClaimAcornShare(callback){
     myContract.ClaimAcornShare().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1515,7 +1515,7 @@ function BecomeSnailmaster(callback){
 	myContract.BecomeSnailmaster().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1523,7 +1523,7 @@ function JoinRound(callback){
     myContract.JoinRound().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1531,7 +1531,7 @@ function BeginRound(callback){
 	myContract.BeginRound().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1539,7 +1539,7 @@ function BecomeSquirrelDuke(callback){
 	myContract.BecomeSquirrelDuke().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1547,7 +1547,7 @@ function FindSlug(callback){
 	myContract.FindSlug().send().then(result => {
         callback();
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1558,7 +1558,7 @@ function GetAcorn(adr, callback){
     myContract.GetAcorn(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1566,7 +1566,7 @@ function GetRed(adr, callback){
     myContract.GetRed(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1575,7 +1575,7 @@ function GetMyBalance(callback){
     myContract.GetMyBalance().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1583,7 +1583,7 @@ function gotCarrot(callback){
     myContract.gotCarrot().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1591,7 +1591,7 @@ function ComputeHarvest(callback){
     myContract.ComputeHarvest().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1599,7 +1599,7 @@ function playerRound(callback){
     myContract.playerRound().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1607,7 +1607,7 @@ function round(callback){
     myContract.round().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1615,7 +1615,7 @@ function hatcherySnail(callback){
     myContract.hatcherySnail().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1623,7 +1623,7 @@ function hasSlug(callback){
     myContract.hasSlug().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1631,7 +1631,7 @@ function divPerAcorn(callback){
     myContract.divPerAcorn().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1639,7 +1639,7 @@ function hasStartingSnail(callback){
     myContract.hasStartingSnail().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
 
@@ -1647,7 +1647,7 @@ function ComputeSquare(_base,callback){
     myContract.ComputeSquare(_base).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
    
@@ -1655,7 +1655,7 @@ function ComputeAcornBuy(_trx,callback){
 	myContract.ComputeAcorn(_trx).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }   
    
@@ -1663,7 +1663,7 @@ function redEgg(callback){
 	myContract.redEgg().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }   
    
@@ -1671,7 +1671,7 @@ function ComputeAcornCost(callback){
     myContract.ComputeAcornCost().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1679,7 +1679,7 @@ function eggPot(callback){
 	myContract.eggPot().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1687,7 +1687,7 @@ function roundPot(callback){
     myContract.roundPot().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
    
@@ -1695,7 +1695,7 @@ function ComputeSell(eggspent,callback){
     myContract.ComputeSell(eggspent).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
    
@@ -1703,7 +1703,7 @@ function GetSnail(adr,callback){
 	myContract.GetSnail(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1711,7 +1711,7 @@ function lastHatch(callback){
 	myContract.lastHatch().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1719,7 +1719,7 @@ function playerBalance(callback){
     myContract.playerBalance().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
    
@@ -1727,7 +1727,7 @@ function ComputeMyEgg(adr,callback){
     myContract.ComputeMyEgg(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
    
@@ -1735,7 +1735,7 @@ function GetLettuce(adr,callback){
     myContract.GetLettuce(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1743,7 +1743,7 @@ function snailPot(callback){
     myContract.snailPot().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1751,7 +1751,7 @@ function GetProd(adr,callback){
 	myContract.GetProd(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
     
@@ -1759,7 +1759,7 @@ function GetMyEgg(callback){
 	myContract.GetMyEgg().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1767,7 +1767,7 @@ function GetSlug(adr,callback){
 	myContract.GetSlug(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1775,7 +1775,7 @@ function GetCarrot(adr,callback){
 	myContract.GetCarrot(adr).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }
     
@@ -1783,7 +1783,7 @@ function snailmasterReq(callback){
 	myContract.snailmasterReq().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1791,7 +1791,7 @@ function currentSpiderOwner(callback){
 	myContract.currentSpiderOwner().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
     
@@ -1799,7 +1799,7 @@ function marketEgg(callback){
 	myContract.marketEgg().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1807,7 +1807,7 @@ function ComputeMyShare(callback){
 	myContract.ComputeMyShare().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1815,7 +1815,7 @@ function currentLeader(callback){
     myContract.currentLeader().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1823,7 +1823,7 @@ function currentSnailmaster(callback){
 	myContract.currentSnailmaster().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1831,7 +1831,7 @@ function tadpoleReq(callback){
 	myContract.tadpoleReq().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1839,7 +1839,7 @@ function claimedShare(callback){
 	myContract.claimedShare().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1847,7 +1847,7 @@ function ComputeBuy(trxspent, callback){
 	myContract.ComputeBuy(trxspent).call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1855,7 +1855,7 @@ function maxAcorn(callback){
 	myContract.maxAcorn().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1863,7 +1863,7 @@ function spiderReq(callback){
 	myContract.spiderReq().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1871,7 +1871,7 @@ function nextRoundStart(callback){
 	myContract.nextRoundStart().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1879,7 +1879,7 @@ function GetMyRound(callback){
 	myContract.GetMyRound().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1887,7 +1887,7 @@ function lettuceReq(callback){
 	myContract.lettuceReq().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
    
@@ -1895,7 +1895,7 @@ function squirrelReq(callback){
 	myContract.squirrelReq().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1903,7 +1903,7 @@ function gameActive(callback){
 	myContract.gameActive().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1911,7 +1911,7 @@ function currentSquirrelOwner(callback){
 	myContract.currentSquirrelOwner().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1919,7 +1919,7 @@ function currentTadpoleOwner(callback){
 	myContract.currentTadpoleOwner().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1927,7 +1927,7 @@ function thronePot(callback){
 	myContract.thronePot().call().then(result => {
         callback(tronWeb.toDecimal(result));
     }).catch((err) => {
-        console.log(err)
+        //console.log(err)
     });
 }  
 
@@ -1945,11 +1945,11 @@ function ACORN_PRICE(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ACORN_PRICE ',tronWeb.toDecimal(result));
+            ////////console.log('ACORN_PRICE ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -1962,11 +1962,11 @@ function GetMyBalance(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetMyBalance ',tronWeb.toDecimal(result));
+            ////////console.log('GetMyBalance ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -1979,11 +1979,11 @@ function LETTUCE_BASE_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('LETTUCE_BASE_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('LETTUCE_BASE_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -1996,11 +1996,11 @@ function SPIDER_BASE_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SPIDER_BASE_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('SPIDER_BASE_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2013,11 +2013,11 @@ function GetAcorn(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetAcorn ',tronWeb.toDecimal(result));
+            ////////console.log('GetAcorn ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2030,11 +2030,11 @@ function gotCarrot(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('gotCarrot ',tronWeb.toDecimal(result));
+            ////////console.log('gotCarrot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2047,11 +2047,11 @@ function ComputeHarvest(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeHarvest ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeHarvest ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2064,11 +2064,11 @@ function playerRound(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('playerRound ',tronWeb.toDecimal(result));
+            ////////console.log('playerRound ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2081,11 +2081,11 @@ function round(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('round ',tronWeb.toDecimal(result));
+            ////////console.log('round ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2098,11 +2098,11 @@ function GetRed(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetRed ',tronWeb.toDecimal(result));
+            ////////console.log('GetRed ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2115,11 +2115,11 @@ function ClaimAcornShare(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ClaimAcornShare ',result);
+            ////////console.log('ClaimAcornShare ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2132,11 +2132,11 @@ function JoinRound(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('JoinRound ',result);
+            ////////console.log('JoinRound ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2149,11 +2149,11 @@ function BuyStartingSnail(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('BuyStartingSnail ',result);
+            ////////console.log('BuyStartingSnail ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2166,11 +2166,11 @@ function hatcherySnail(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('hatcherySnail ',tronWeb.toDecimal(result));
+            ////////console.log('hatcherySnail ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2183,11 +2183,11 @@ function hasSlug(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('hasSlug ',result);
+            ////////console.log('hasSlug ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2200,11 +2200,11 @@ function divPerAcorn(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('divPerAcorn ',tronWeb.toDecimal(result));
+            ////////console.log('divPerAcorn ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2217,11 +2217,11 @@ function UseRedEgg(_redAmount,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('UseRedEgg ',result);
+            ////////console.log('UseRedEgg ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2234,11 +2234,11 @@ function HARVEST_MIN_COST(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('HARVEST_MIN_COST ',tronWeb.toDecimal(result));
+            ////////console.log('HARVEST_MIN_COST ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2251,11 +2251,11 @@ function hasStartingSnail(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('hasStartingSnail ',result);
+            ////////console.log('hasStartingSnail ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2268,11 +2268,11 @@ function ComputeSquare(base,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeSquare ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeSquare ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2285,11 +2285,11 @@ function FundTree(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('FundTree ',result);
+            ////////console.log('FundTree ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2302,11 +2302,11 @@ function ComputeAcornBuy(_trx,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeAcornBuy ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeAcornBuy ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2319,11 +2319,11 @@ function redEgg(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('redEgg ',tronWeb.toDecimal(result));
+            ////////console.log('redEgg ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2336,11 +2336,11 @@ function ComputeAcornCost(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeAcornCost ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeAcornCost ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2353,11 +2353,11 @@ function TADPOLE_BASE_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('TADPOLE_BASE_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('TADPOLE_BASE_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2370,11 +2370,11 @@ function roundPot(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('roundPot ',tronWeb.toDecimal(result));
+            ////////console.log('roundPot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2387,11 +2387,11 @@ function ComputeSell(eggspent,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeSell ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeSell ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2404,11 +2404,11 @@ function GetSnail(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetSnail ',tronWeb.toDecimal(result));
+            ////////console.log('GetSnail ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2421,11 +2421,11 @@ function lastHatch(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('lastHatch ',tronWeb.toDecimal(result));
+            ////////console.log('lastHatch ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2438,11 +2438,11 @@ function SNAILTHRONE(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SNAILTHRONE ',result);
+            ////////console.log('SNAILTHRONE ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2455,11 +2455,11 @@ function PayThrone(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('PayThrone ',result);
+            ////////console.log('PayThrone ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2472,11 +2472,11 @@ function playerBalance(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('playerBalance ',tronWeb.toDecimal(result));
+            ////////console.log('playerBalance ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2489,11 +2489,11 @@ function ACORN_MULT(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ACORN_MULT ',tronWeb.toDecimal(result));
+            ////////console.log('ACORN_MULT ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2506,11 +2506,11 @@ function ComputeMyEgg(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeMyEgg ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeMyEgg ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2523,11 +2523,11 @@ function acorn(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('acorn ',tronWeb.toDecimal(result));
+            ////////console.log('acorn ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2540,11 +2540,11 @@ function FindLettuce(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('FindLettuce ',result);
+            ////////console.log('FindLettuce ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2557,11 +2557,11 @@ function SellEgg(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SellEgg ',result);
+            ////////console.log('SellEgg ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2574,11 +2574,11 @@ function GetLettuce(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetLettuce ',result);
+            ////////console.log('GetLettuce ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2591,11 +2591,11 @@ function BecomeSpiderQueen(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('BecomeSpiderQueen ',result);
+            ////////console.log('BecomeSpiderQueen ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2608,11 +2608,11 @@ function snailPot(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('snailPot ',tronWeb.toDecimal(result));
+            ////////console.log('snailPot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2625,11 +2625,11 @@ function BuyEgg(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('BuyEgg ',result);
+            ////////console.log('BuyEgg ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2642,11 +2642,11 @@ function GetProd(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetProd ',tronWeb.toDecimal(result));
+            ////////console.log('GetProd ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2659,11 +2659,11 @@ function SQUIRREL_BASE_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SQUIRREL_BASE_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('SQUIRREL_BASE_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2676,11 +2676,11 @@ function GetMyEgg(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetMyEgg ',tronWeb.toDecimal(result));
+            ////////console.log('GetMyEgg ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2693,11 +2693,11 @@ function ROUND_DOWNTIME(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ROUND_DOWNTIME ',tronWeb.toDecimal(result));
+            ////////console.log('ROUND_DOWNTIME ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2710,11 +2710,11 @@ function GrabRedHarvest(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('GrabRedHarvest ',result);
+            ////////console.log('GrabRedHarvest ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2727,11 +2727,11 @@ function HATCHING_COST(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('HATCHING_COST ',tronWeb.toDecimal(result));
+            ////////console.log('HATCHING_COST ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2744,11 +2744,11 @@ function GetSlug(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetSlug ',result);
+            ////////console.log('GetSlug ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2761,11 +2761,11 @@ function snailmasterReq(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('snailmasterReq ',tronWeb.toDecimal(result));
+            ////////console.log('snailmasterReq ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2778,11 +2778,11 @@ function STARTING_SNAIL_COST(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('STARTING_SNAIL_COST ',tronWeb.toDecimal(result));
+            ////////console.log('STARTING_SNAIL_COST ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2795,11 +2795,11 @@ function harvestStartTime(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('harvestStartTime ',tronWeb.toDecimal(result));
+            ////////console.log('harvestStartTime ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2812,11 +2812,11 @@ function currentSpiderOwner(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('currentSpiderOwner ',result);
+            ////////console.log('currentSpiderOwner ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2829,11 +2829,11 @@ function SLUG_MIN_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SLUG_MIN_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('SLUG_MIN_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2846,11 +2846,11 @@ function eggPot(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('eggPot ',tronWeb.toDecimal(result));
+            ////////console.log('eggPot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2863,11 +2863,11 @@ function HatchEgg(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('HatchEgg ',result);
+            ////////console.log('HatchEgg ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2880,11 +2880,11 @@ function FROGKING_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('FROGKING_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('FROGKING_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2897,11 +2897,11 @@ function BeginRound(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('BeginRound ',result);
+            ////////console.log('BeginRound ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2914,11 +2914,11 @@ function marketEgg(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('marketEgg ',tronWeb.toDecimal(result));
+            ////////console.log('marketEgg ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2931,11 +2931,11 @@ function BecomeTadpolePrince(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('BecomeTadpolePrince ',result);
+            ////////console.log('BecomeTadpolePrince ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2948,11 +2948,11 @@ function SNAILMASTER_REQ(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('SNAILMASTER_REQ ',tronWeb.toDecimal(result));
+            ////////console.log('SNAILMASTER_REQ ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2965,11 +2965,11 @@ function dev(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('dev ',result);
+            ////////console.log('dev ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2982,11 +2982,11 @@ function prodBoost(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('prodBoost ',tronWeb.toDecimal(result));
+            ////////console.log('prodBoost ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -2999,11 +2999,11 @@ function FindCarrot(trx,callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
-            //////console.log('FindCarrot ',result);
+            ////////console.log('FindCarrot ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3016,11 +3016,11 @@ function harvestStartCost(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('harvestStartCost ',tronWeb.toDecimal(result));
+            ////////console.log('harvestStartCost ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3033,11 +3033,11 @@ function WithdrawBalance(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('WithdrawBalance ',result);
+            ////////console.log('WithdrawBalance ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3050,11 +3050,11 @@ function STARTING_SNAIL(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('STARTING_SNAIL ',tronWeb.toDecimal(result));
+            ////////console.log('STARTING_SNAIL ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3067,11 +3067,11 @@ function ComputeMyShare(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeMyShare ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeMyShare ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3084,11 +3084,11 @@ function currentLeader(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('currentLeader ',result);
+            ////////console.log('currentLeader ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3101,11 +3101,11 @@ function currentSnailmaster(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('currentSnailmaster ',result);
+            ////////console.log('currentSnailmaster ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3118,11 +3118,11 @@ function HARVEST_COUNT(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('HARVEST_COUNT ',tronWeb.toDecimal(result));
+            ////////console.log('HARVEST_COUNT ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3135,11 +3135,11 @@ function tadpoleReq(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('tadpoleReq ',tronWeb.toDecimal(result));
+            ////////console.log('tadpoleReq ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3152,11 +3152,11 @@ function claimedShare(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('claimedShare ',tronWeb.toDecimal(result));
+            ////////console.log('claimedShare ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3169,11 +3169,11 @@ function thronePot(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('thronePot ',tronWeb.toDecimal(result));
+            ////////console.log('thronePot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3186,11 +3186,11 @@ function ComputeBuy(trxspent,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('ComputeBuy ',tronWeb.toDecimal(result));
+            ////////console.log('ComputeBuy ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3203,11 +3203,11 @@ function maxAcorn(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('maxAcorn ',tronWeb.toDecimal(result));
+            ////////console.log('maxAcorn ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3220,11 +3220,11 @@ function spiderReq(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('spiderReq ',tronWeb.toDecimal(result));
+            ////////console.log('spiderReq ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3237,11 +3237,11 @@ function TIME_TO_HATCH_1SNAIL(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('TIME_TO_HATCH_1SNAIL ',tronWeb.toDecimal(result));
+            ////////console.log('TIME_TO_HATCH_1SNAIL ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3254,11 +3254,11 @@ function CARROT_COST(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('CARROT_COST ',tronWeb.toDecimal(result));
+            ////////console.log('CARROT_COST ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3271,11 +3271,11 @@ function BecomeSquirrelDuke(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('BecomeSquirrelDuke ',result);
+            ////////console.log('BecomeSquirrelDuke ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3288,11 +3288,11 @@ function GetCarrot(adr,callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetCarrot ',tronWeb.toDecimal(result));
+            ////////console.log('GetCarrot ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3305,11 +3305,11 @@ function hasLettuce(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('hasLettuce ',result);
+            ////////console.log('hasLettuce ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3322,11 +3322,11 @@ function nextRoundStart(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('nextRoundStart ',tronWeb.toDecimal(result));
+            ////////console.log('nextRoundStart ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3339,11 +3339,11 @@ function HARVEST_DURATION(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('HARVEST_DURATION ',tronWeb.toDecimal(result));
+            ////////console.log('HARVEST_DURATION ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3356,11 +3356,11 @@ function BecomeSnailmaster(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('BecomeSnailmaster ',result);
+            ////////console.log('BecomeSnailmaster ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3373,11 +3373,11 @@ function GetMyRound(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('GetMyRound ',tronWeb.toDecimal(result));
+            ////////console.log('GetMyRound ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3390,11 +3390,11 @@ function claimedEgg(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('claimedEgg ',tronWeb.toDecimal(result));
+            ////////console.log('claimedEgg ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3407,11 +3407,11 @@ function HARVEST_DUR_ROOT(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('HARVEST_DUR_ROOT ',tronWeb.toDecimal(result));
+            ////////console.log('HARVEST_DUR_ROOT ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3424,11 +3424,11 @@ function lettuceReq(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('lettuceReq ',tronWeb.toDecimal(result));
+            ////////console.log('lettuceReq ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3441,11 +3441,11 @@ function FindSlug(callback){
     var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('FindSlug ',result);
+            ////////console.log('FindSlug ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3458,11 +3458,11 @@ function squirrelReq(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('squirrelReq ',tronWeb.toDecimal(result));
+            ////////console.log('squirrelReq ',tronWeb.toDecimal(result));
             callback(tronWeb.toDecimal(result))
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3475,11 +3475,11 @@ function gameActive(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('gameActive ',result);
+            ////////console.log('gameActive ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3492,11 +3492,11 @@ function currentSquirrelOwner(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('currentSquirrelOwner ',result);
+            ////////console.log('currentSquirrelOwner ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3509,11 +3509,11 @@ function currentTadpoleOwner(callback){
     var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
-            //////console.log('currentTadpoleOwner ',result);
+            ////////console.log('currentTadpoleOwner ',result);
             callback(result)
         }
         else{
-            //////console.log('transaction failed with ',error.message)
+            ////////console.log('transaction failed with ',error.message)
         }
     });
 }
@@ -3548,19 +3548,19 @@ function checkHash(txarray, txhash) {
 
 function computeLeaderboard() {
 	var lowest = d_leaderboard[0].hatchery;
-	////////console.log("lowest: " + lowest);
+	//////////console.log("lowest: " + lowest);
 	var position = 0; 
-	////////console.log("position: " + position);
+	//////////console.log("position: " + position);
 	
 	//Check lowest leader
 	var i = 0;
 	for(i = 0; i < 5; i++) {
-		////////console.log("loop i " + i);
+		//////////console.log("loop i " + i);
 		if(d_leaderboard[i].hatchery < lowest) {
 			lowest = d_leaderboard[i].hatchery;
-			////////console.log("lowest: " + lowest);
+			//////////console.log("lowest: " + lowest);
 			position = i;
-			////////console.log("position: " + position);
+			//////////console.log("position: " + position);
 		}
 	}
 	
@@ -3570,18 +3570,18 @@ function computeLeaderboard() {
 		if(e_hatched.address == d_leaderboard[k].address) {
 			d_leaderboard[k].address = e_hatched.address;
 			d_leaderboard[k].hatchery = e_hatched.hatchery;
-			////////console.log("e_hatched already on leaderboard, replace previous entry");
+			//////////console.log("e_hatched already on leaderboard, replace previous entry");
 			notLeader = false;
 		}
 	}
 
 	var newEntry = false;
 	if(notLeader == true && e_hatched.hatchery > lowest) {
-		////////console.log("e_hatched is above lowest");
+		//////////console.log("e_hatched is above lowest");
 		d_leaderboard[position].address = e_hatched.address;
 		d_leaderboard[position].hatchery = e_hatched.hatchery;
-		////////console.log("d_leaderboard[" + position + "].hatchery = " + d_leaderboard[position].hatchery);
-		////////console.log("d_leaderboard[" + position + "].rank = " + d_leaderboard[position].rank);
+		//////////console.log("d_leaderboard[" + position + "].hatchery = " + d_leaderboard[position].hatchery);
+		//////////console.log("d_leaderboard[" + position + "].rank = " + d_leaderboard[position].rank);
 		newEntry = true;
 	}
 	/*
@@ -3589,15 +3589,15 @@ function computeLeaderboard() {
 	var j = 0;
 	var previousRank = d_leaderboard[position].rank
 	for(j = 0; j < 5; j++) {
-		////////console.log("loop j " + j);
+		//////////console.log("loop j " + j);
 		if(d_leaderboard[position].hatchery > d_leaderboard[j].hatchery) {
-			////////console.log("d_leaderboard hatchery is greater than d_leaderboard[" + j + "]hatchery");		
+			//////////console.log("d_leaderboard hatchery is greater than d_leaderboard[" + j + "]hatchery");		
 			if(previousRank > d_leaderboard[j].rank) {
-				////////console.log("d_l rank is under d_l[" + j + "]rank");
+				//////////console.log("d_l rank is under d_l[" + j + "]rank");
 				d_leaderboard[position].rank = d_leaderboard[j].rank;
-				////////console.log("new d_l rank: " + d_leaderboard[position].rank);
+				//////////console.log("new d_l rank: " + d_leaderboard[position].rank);
 				d_leaderboard[j].rank += 1;
-				////////console.log("new d_l[" + j + "]rank: " + d_leaderboard[j].rank);
+				//////////console.log("new d_l[" + j + "]rank: " + d_leaderboard[j].rank);
 			}
 		}
 	}
@@ -3608,7 +3608,7 @@ function computeLeaderboard() {
 	}
 	*/
 	//Update leaderboard
-	////////console.log("time to update leaderboard");
+	//////////console.log("time to update leaderboard");
 	showLeaderboard();
 }
 
@@ -3623,13 +3623,13 @@ var hatchEvent = myContract.Hatched();
 
 hatchEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " hatched " + result.args.eggs + " Eggs into " + result.args.snails + " Snails, and has " + result.args.hatchery + " Snails in total.";
 			e_hatched.address = result.args.player;
 			e_hatched.hatchery = parseInt(result.args.hatchery); //seems to return an array/object
-			//////console.log("e_hatch is " + e_hatched.hatchery);
+			////////console.log("e_hatch is " + e_hatched.hatchery);
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 			computeLeaderboard();
 		}
@@ -3640,7 +3640,7 @@ var usedredEvent = myContract.UsedRed();
 
 usedredEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " hatched " + result.args.eggs + " Reds into " + result.args.snails + " Snails, and has a total of " + result.args.hatchery + " Snails.";
@@ -3656,7 +3656,7 @@ var fundedtreeEvent = myContract.FundedTree();
 
 fundedtreeEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " funded the trxTree with " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx and receives " + result.args.acorns + " Acorns.";
@@ -3670,7 +3670,7 @@ var claimedshareEvent = myContract.ClaimedShare();
 
 claimedshareEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " claimed " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx thanks to his " + result.args.acorns + " Acorns.";
@@ -3684,7 +3684,7 @@ var becamemasterEvent = myContract.BecameMaster();
 
 becamemasterEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] Bow down to " + formattrxAdr(result.args.player) + ", your new Snailmaster!";
@@ -3697,7 +3697,7 @@ var withdrewbalanceEvent = myContract.WithdrewBalance();
 
 withdrewbalanceEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " withdrew " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx from his balance.";
@@ -3711,7 +3711,7 @@ var soldeggEvent = myContract.SoldEgg();
 
 soldeggEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sold " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx.";
@@ -3724,7 +3724,7 @@ var boughteggEvent = myContract.BoughtEgg();
 
 boughteggEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " bought " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx."; //inverted eggs and trx in contract event
@@ -3737,7 +3737,7 @@ var startedsnailingEvent = myContract.StartedSnailing();
 
 startedsnailingEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] Welcome to our newest SnailFarmer, " + formattrxAdr(result.args.player) + "!";
@@ -3750,7 +3750,7 @@ var becamequeenEvent = myContract.BecameQueen();
 
 becamequeenEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the SpiderQueen!";
@@ -3763,7 +3763,7 @@ var becamedukeEvent = myContract.BecameDuke();
 
 becamequeenEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the SquirrelDuke!";
@@ -3776,7 +3776,7 @@ var becameprinceEvent = myContract.BecamePrince();
 
 becameprinceEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the TadpolePrince!";
@@ -3789,7 +3789,7 @@ var wonroundEvent = myContract.WonRound();
 
 wonroundEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		//if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " WINS ROUND " + result.args.round + " AND EARNS " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx!";
@@ -3802,7 +3802,7 @@ var beganroundEvent = myContract.BeganRound();
 
 beganroundEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] Round " + result.args.round + " has started!";
@@ -3815,7 +3815,7 @@ var joinedroundEvent = myContract.JoinedRound();
 
 joinedroundEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " joins the fray, with " + result.args.playerreds + " Red Eggs.";
@@ -3828,7 +3828,7 @@ var grabbedharvestEvent = myContract.GrabbedHarvest();
 
 grabbedharvestEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " grabbed the Red Harvest by spending " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx.";
@@ -3841,7 +3841,7 @@ var foundslugEvent = myContract.FoundSlug();
 
 foundslugEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sacrifices a colossal " + result.args.snails + " Snails and finds the Slug.";
@@ -3854,7 +3854,7 @@ var foundlettuceEvent = myContract.FoundLettuce();
 
 foundlettuceEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " spent " + a_lettuceReq + " Red Eggs to find a Lettuce.";
@@ -3867,7 +3867,7 @@ var foundcarrotEvent = myContract.FoundCarrot();
 
 foundcarrotEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " found a Carrot for 0.02 trx.";
@@ -3880,7 +3880,7 @@ var paidthroneEvent = myContract.PaidThrone();
 
 paidthroneEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " paid tribute to the SnailThrone! " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx have been sent.";
@@ -3893,7 +3893,7 @@ var boostedpotEvent = myContract.BoostedPot();
 
 boostedpotEvent.watch(function(error, result){
     if(!error){
-		////////console.log(result);
+		//////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
 			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " makes a generous " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trx')) + " trx donation to the SnailPot. Next round is going to be sweet!";
