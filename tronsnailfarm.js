@@ -148,6 +148,7 @@ var d_leaderboard = [
 
 //Initiates loops
 function main(){
+	waitForTronWeb();
     //console.log('Main loop started.');
     controlLoop();
 	controlLoopFast();
