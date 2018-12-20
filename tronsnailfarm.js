@@ -1171,8 +1171,8 @@ function updateRedHatch2(){
 //Buy estimate
 function updateBuyEstimate(){
 	var buyEstimatedoc = document.getElementById('buyestimate');
-	var weitospend = tronWeb.toSun(f_buy,'trx');
-	ComputeBuy(weitospend, function(req) {
+	var sunToSpend = tronWeb.toSun(f_buy,'trx');
+	ComputeBuy(sunToSpend, function(req) {
 		buyEstimatedoc.textContent = req;
 	});	
 }
@@ -1219,8 +1219,8 @@ function webJoinRound(){
 
 //Fund tree
 function webFundTree(){
-    var weitospend = tronWeb.toSun(f_tree,'trx');
-    FundTree(weitospend, function(){
+    var sunToSpend = tronWeb.toSun(f_tree,'trx');
+    FundTree(sunToSpend, function(){
     });
 }
 
@@ -1232,8 +1232,8 @@ function webClaimShare(){
 
 //Buy starting snails
 function webGetStarter(){
-    var weitospend = tronWeb.toSun(0.004,'trx');
-	BuyStartingSnail(weitospend, function(){
+    var sunToSpend = tronWeb.toSun(0.004,'trx');
+	BuyStartingSnail(sunToSpend, function(){
 	});
 }
 
@@ -1252,8 +1252,8 @@ function webPayThrone(){
 //Hatch eggs
 function webHatchEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toSun(0.0008,'trx');
-		HatchEgg(weitospend, function(){
+		var sunToSpend = tronWeb.toSun(0.0008,'trx');
+		HatchEgg(sunToSpend, function(){
 		});
 	} else {
 		modal.style.display = "block";
@@ -1263,8 +1263,8 @@ function webHatchEgg(){
 //Buy eggs
 function webBuyEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toSun(f_buy,'trx');
-		BuyEgg(weitospend, function(){
+		var sunToSpend = tronWeb.toSun(f_buy,'trx');
+		BuyEgg(sunToSpend, function(){
 		});
 	} else {
 		modal.style.display = "block";
@@ -1314,8 +1314,8 @@ function webBecomeSquirrelDuke(){
 //Become TadpolePrince
 function webBecomeTadpolePrince(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toSun(f_prince,'trx');
-		BecomeTadpolePrince(weitospend, function(){
+		var sunToSpend = tronWeb.toSun(f_prince,'trx');
+		BecomeTadpolePrince(sunToSpend, function(){
 		});
 	} else {
 		modal.style.display = "block";
@@ -1325,8 +1325,8 @@ function webBecomeTadpolePrince(){
 //Claim Red Harvest
 function webClaimRedHarvest(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toSun(a_harvestCost,'trx');
-		GrabRedHarvest(weitospend, function(){
+		var sunToSpend = tronWeb.toSun(a_harvestCost,'trx');
+		GrabRedHarvest(sunToSpend, function(){
 		});
 	} else {
 		modal.style.display = "block";
@@ -1356,8 +1356,8 @@ function webFindLettuce(){
 //Find Carrot
 function webFindCarrot(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toSun(0.02,'trx');
-		FindCarrot(weitospend, function(){
+		var sunToSpend = tronWeb.toSun(0.02,'trx');
+		FindCarrot(sunToSpend, function(){
 		});
 	} else {
 		modal.style.display = "block";
@@ -1416,7 +1416,7 @@ function BuyStartingSnail(trx, callback){
 
 function FundTree(trx, callback){
 	myContract.FundTree({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1424,7 +1424,7 @@ function FundTree(trx, callback){
 
 function BuyEgg(trx, callback){
 	myContract.BuyEgg({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1432,7 +1432,7 @@ function BuyEgg(trx, callback){
 
 function GrabRedHarvest(trx,callback){
 	myContract.GrabRedHarvest({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1440,7 +1440,7 @@ function GrabRedHarvest(trx,callback){
 
 function FindCarrot(trx, callback){
 	myContract.FindCarrot({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1449,7 +1449,7 @@ function FindCarrot(trx, callback){
 
 function HatchEgg(trx, callback){
 	myContract.HatchEgg({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1457,7 +1457,7 @@ function HatchEgg(trx, callback){
 
 function BecomeTadpolePrince(trx, callback){
 	myContract.BecomeTadpolePrince({callValue: trx}).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1465,7 +1465,7 @@ function BecomeTadpolePrince(trx, callback){
 
 function UseRedEgg(_red, callback){
     myContract.UseRedEgg(_red).send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1473,7 +1473,7 @@ function UseRedEgg(_red, callback){
 
 function FindLettuce(callback){
 	myContract.FindLettuce().send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1481,7 +1481,7 @@ function FindLettuce(callback){
 
 function SellEgg(callback){
 	myContract.SellEgg().send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1489,7 +1489,7 @@ function SellEgg(callback){
 
 function BecomeSpiderQueen(callback){
 	myContract.BecomeSpiderQueen().send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
@@ -1497,7 +1497,7 @@ function BecomeSpiderQueen(callback){
 
 function WithdrawBalance(callback){
 	myContract.WithdrawBalance().send().then(result => {
-        callback(tronWeb.toDecimal(result));
+        callback();
     }).catch((err) => {
         //console.log(err)
     });
