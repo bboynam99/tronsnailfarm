@@ -3084,7 +3084,7 @@ function computeLeaderboard() {
 }
 
 /* EVENTS */
-
+/*
 var logboxscroll = document.getElementById('logboxscroll');
 var eventlogdoc = document.getElementById("eventlog");
 
