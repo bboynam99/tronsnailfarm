@@ -2,8 +2,17 @@ var contractAddress="TKr9aX2g8FDzCp3ZkGM88WWD8AiMh57ga8" // shasta 1
 
 /* tronWeb DETECTION */
 
-//var modal2 = document.getElementById("modal2");
+async function waitForTronWeb(){
+    if (typeof(window.tronWeb) === 'undefined') {
+        console.log('Waiting for tronWeb...');
+        setTimeout(waitForTronWeb, 1000);
+    } else {
+        myContract = await tronWeb.contract().at(contractAddress);
+    }
+}
 
+//var modal2 = document.getElementById("modal2");
+/*
 var tronWeb;
 
 window.onload = function() {
@@ -769,7 +778,7 @@ function checkTadpoleOwner(){
 function updateTadpoleReq(){
 	var tadpolereqdoc = document.getElementById('tadpolereq');
 	tadpoleReq(function(req) {
-		a_tadpoleReq = formattrxValue2(tronWeb.fromWei(req, 'trxer'));
+		a_tadpoleReq = formattrxValue2(tronWeb.fromSun(req, 'trxer'));
 		a_tadpoleReq = (parseFloat(a_tadpoleReq) + parseFloat(0.0001)).toFixed(6);
 		tadpolereqdoc.textContent = a_tadpoleReq;
 	});
@@ -804,7 +813,7 @@ function checkPotato(){
 function updateHarvestCost(){
 	var harvestcostdoc = document.getElementById('harvestcost');
 	ComputeHarvest(function(req) {
-		a_harvestCost = formattrxValue2(tronWeb.fromWei(req,'trxer'));
+		a_harvestCost = formattrxValue2(tronWeb.fromSun(req,'trxer'));
 		a_harvestCost = (parseFloat(a_harvestCost) + parseFloat(0.0001)).toFixed(6);
 		harvestcostdoc.textContent = a_harvestCost;
 	});
@@ -925,7 +934,7 @@ function updateContractBalance(){
 	tronWeb.trx.getBalance(contractAddress, function(error, result) {
 		if(!error) {
 			//////////console.log(result);
-			a_contractBalance = formattrxValue(tronWeb.fromWei(result, 'trxer'))
+			a_contractBalance = formattrxValue(tronWeb.fromSun(result, 'trxer'))
 			contractbalancedoc.textContent = a_contractBalance; 
 		} else {
 			////////console.log("didn't work");
@@ -948,7 +957,7 @@ function updateRound(){
 function updateSnailPot(){
 	var snailpotdoc = document.getElementById('snailpot');
 	snailPot(function(req) {
-		a_snailPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
+		a_snailPot = formattrxValue(tronWeb.fromSun(req,'trxer'));
 		snailpotdoc.textContent = a_snailPot;
 	});
 }
@@ -957,7 +966,7 @@ function updateSnailPot(){
 function updateRoundPot(){
 	var roundpotdoc = document.getElementById('roundpot');
 	roundPot(function(req) {
-		a_roundPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
+		a_roundPot = formattrxValue(tronWeb.fromSun(req,'trxer'));
 		roundpotdoc.textContent = a_roundPot;
 	});
 }
@@ -966,7 +975,7 @@ function updateRoundPot(){
 function updateEggPot(){
 	var eggpotdoc = document.getElementById('eggpot');
 	eggPot(function(req) {
-		a_eggPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
+		a_eggPot = formattrxValue(tronWeb.fromSun(req,'trxer'));
 		eggpotdoc.textContent = a_eggPot;
 	});
 }
@@ -975,7 +984,7 @@ function updateEggPot(){
 function updattrxronePot(){
 	var thronepotdoc = document.getElementById('thronepot');
 	thronePot(function(req) {
-		a_thronePot = formattrxValue(tronWeb.fromWei(req,'trxer'));
+		a_thronePot = formattrxValue(tronWeb.fromSun(req,'trxer'));
 		thronepotdoc.textContent = a_thronePot;
 	});
 }
@@ -1008,7 +1017,7 @@ function updateMaxAcorn(){
 function updateAcornCost(){
 	var acorncostdoc = document.getElementById('acorncost');
 	ComputeAcornCost(function(req) {
-		a_acornCost = formattrxValue2(tronWeb.fromWei(req,'trxer'));
+		a_acornCost = formattrxValue2(tronWeb.fromSun(req,'trxer'));
 		acorncostdoc.textContent = a_acornCost;
 	});
 }
@@ -1098,7 +1107,7 @@ function updatePlayerProd(){
 function updatePlayerBalance(){
 	var playerbalancedoc = document.getElementById('playerbalance');
 	GetMyBalance(function(req) {
-		playerbalancedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
+		playerbalancedoc.textContent = formattrxValue2(tronWeb.fromSun(req,'trxer'));
 	});
 }	
 
@@ -1115,7 +1124,7 @@ function updatePlayerAcorn(){
 function updatePlayerShare(){
 	var playersharedoc = document.getElementById('playershare');
 	ComputeMyShare(function(req) {
-		playersharedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
+		playersharedoc.textContent = formattrxValue2(tronWeb.fromSun(req,'trxer'));
 	});
 }
 
@@ -1158,7 +1167,7 @@ function updateRedHatch2(){
 //Buy estimate
 function updateBuyEstimate(){
 	var buyEstimatedoc = document.getElementById('buyestimate');
-	var weitospend = tronWeb.toWei(f_buy,'trxer');
+	var weitospend = tronWeb.toSun(f_buy,'trxer');
 	ComputeBuy(weitospend, function(req) {
 		buyEstimatedoc.textContent = req;
 	});	
@@ -1168,7 +1177,7 @@ function updateBuyEstimate(){
 function updateSellEstimate(){
 	var sellEstimatedoc = document.getElementById('sellestimate');
 	ComputeSell(a_playerEgg, function(req) {
-		sellEstimatedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
+		sellEstimatedoc.textContent = formattrxValue2(tronWeb.fromSun(req,'trxer'));
 	});
 }
 
@@ -1206,7 +1215,7 @@ function webJoinRound(){
 
 //Fund tree
 function webFundTree(){
-    var weitospend = tronWeb.toWei(f_tree,'trxer');
+    var weitospend = tronWeb.toSun(f_tree,'trxer');
     FundTree(weitospend, function(){
     });
 }
@@ -1219,7 +1228,7 @@ function webClaimShare(){
 
 //Buy starting snails
 function webGetStarter(){
-    var weitospend = tronWeb.toWei(0.004,'trxer');
+    var weitospend = tronWeb.toSun(0.004,'trxer');
 	BuyStartingSnail(weitospend, function(){
 	});
 }
@@ -1239,7 +1248,7 @@ function webPayThrone(){
 //Hatch eggs
 function webHatchEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toWei(0.0008,'trxer');
+		var weitospend = tronWeb.toSun(0.0008,'trxer');
 		HatchEgg(weitospend, function(){
 		});
 	} else {
@@ -1250,7 +1259,7 @@ function webHatchEgg(){
 //Buy eggs
 function webBuyEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toWei(f_buy,'trxer');
+		var weitospend = tronWeb.toSun(f_buy,'trxer');
 		BuyEgg(weitospend, function(){
 		});
 	} else {
@@ -1301,7 +1310,7 @@ function webBecomeSquirrelDuke(){
 //Become TadpolePrince
 function webBecomeTadpolePrince(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(f_prince,'trxer');
+		var weitospend = tronWeb.toSun(f_prince,'trxer');
 		BecomeTadpolePrince(weitospend, function(){
 		});
 	} else {
@@ -1312,7 +1321,7 @@ function webBecomeTadpolePrince(){
 //Claim Red Harvest
 function webClaimRedHarvest(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(a_harvestCost,'trxer');
+		var weitospend = tronWeb.toSun(a_harvestCost,'trxer');
 		GrabRedHarvest(weitospend, function(){
 		});
 	} else {
@@ -1343,7 +1352,7 @@ function webFindLettuce(){
 //Find Carrot
 function webFindCarrot(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(0.02,'trxer');
+		var weitospend = tronWeb.toSun(0.02,'trxer');
 		FindCarrot(weitospend, function(){
 		});
 	} else {
@@ -3116,7 +3125,7 @@ fundedtreeEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " funded the trxerTree with " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx and receives " + result.args.acorns + " Acorns.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " funded the trxerTree with " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx and receives " + result.args.acorns + " Acorns.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3130,7 +3139,7 @@ claimedshareEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " claimed " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx thanks to his " + result.args.acorns + " Acorns.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " claimed " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx thanks to his " + result.args.acorns + " Acorns.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3157,7 +3166,7 @@ withdrewbalanceEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " withdrew " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx from his balance.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " withdrew " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx from his balance.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3171,7 +3180,7 @@ soldeggEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sold " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sold " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3184,7 +3193,7 @@ boughteggEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " bought " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx."; //inverted eggs and trx in contract event
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " bought " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx."; //inverted eggs and trx in contract event
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3249,7 +3258,7 @@ wonroundEvent.watch(function(error, result){
 		////////console.log(result);
 		//if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " WINS ROUND " + result.args.round + " AND EARNS " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " WINS ROUND " + result.args.round + " AND EARNS " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		//}
 	}
@@ -3288,7 +3297,7 @@ grabbedharvestEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " grabbed the Red Harvest by spending " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " grabbed the Red Harvest by spending " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3340,7 +3349,7 @@ paidthroneEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " paid tribute to the SnailThrone! " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx have been sent.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " paid tribute to the SnailThrone! " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx have been sent.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3353,7 +3362,7 @@ boostedpotEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " makes a generous " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx donation to the SnailPot. Next round is going to be sweet!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " makes a generous " + formattrxValue2(tronWeb.fromSun(result.args.trx,'trxer')) + " trx donation to the SnailPot. Next round is going to be sweet!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
