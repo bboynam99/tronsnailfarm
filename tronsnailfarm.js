@@ -48,18 +48,18 @@ window.onclick = function(event) {
 
 /* UTILITIES */
 
-//Truncates ETH value to 3 decimals
-function formatEthValue(ethstr){
-    return parseFloat(parseFloat(ethstr).toFixed(3));
+//Truncates trx value to 3 decimals
+function formattrxValue(trxstr){
+    return parseFloat(parseFloat(trxstr).toFixed(3));
 }
 
-//Truncates ETH value to 6 decimals
-function formatEthValue2(ethstr){
-	return parseFloat(parseFloat(ethstr).toFixed(6));
+//Truncates trx value to 6 decimals
+function formattrxValue2(trxstr){
+	return parseFloat(parseFloat(trxstr).toFixed(6));
 }
 
-//Truncates ETH address to first 8 numbers
-function formatEthAdr(adr){
+//Truncates trx address to first 8 numbers
+function formattrxAdr(adr){
 	return adr.substring(0, 10);
 }
 
@@ -173,7 +173,7 @@ function controlLoopEgg(){
 
 //Refreshes game data
 function refreshData(){
-	updateEthAccount();
+	updatetrxAccount();
 	updateContractBalance();
 	updateGameActive();
 	updateRound();
@@ -181,7 +181,7 @@ function refreshData(){
 	updateEggPot();
 	updateRoundPot();
 	updateSnailPot();
-	updateThronePot();
+	updattrxronePot();
 	
 	updateMarketEgg();
 	updateMaxEggBuy();
@@ -310,7 +310,7 @@ function updatePlayerStatus(){
 	var playerstatusdoc = document.getElementById('playerstatus')
 	if(a_gameActive == true){
 		if(a_playerRound == 0){
-			playerstatusdoc.innerHTML = '<button class="btn btn-success" onclick="webGetStarter()">Get Starting Snails!</button><br><p class="black-shadow">(will let you play every round, 0.004 ETH cost)</p>';
+			playerstatusdoc.innerHTML = '<button class="btn btn-success" onclick="webGetStarter()">Get Starting Snails!</button><br><p class="black-shadow">(will let you play every round, 0.004 trx cost)</p>';
 		} else if(a_playerRound != a_round){
 			playerstatusdoc.innerHTML = '<button class="btn btn-success" onclick="webJoinRound()">Join New Round!</button><br><p class="black-shadow">(will give you red eggs for your previous performance)</p>';
 		} else {
@@ -358,7 +358,7 @@ function showLeaderboard() {
 	for(i = 1; i < 6; i++) {
 		for(j = 0; j < 5; j++) {
 			if(d_leaderboard[j].rank == i) {
-				leaderboarddoc.innerHTML += "#" + d_leaderboard[j].rank + " | " + formatEthAdr(d_leaderboard[j].address) + " | " + d_leaderboard[j].hatchery + " Snails | " + d_leaderboard[j].egg + " Eggs | " + d_leaderboard[j].red + " Reds | ";
+				leaderboarddoc.innerHTML += "#" + d_leaderboard[j].rank + " | " + formattrxAdr(d_leaderboard[j].address) + " | " + d_leaderboard[j].hatchery + " Snails | " + d_leaderboard[j].egg + " Eggs | " + d_leaderboard[j].red + " Reds | ";
 				//////console.log("updated rank " + i + " with index " + j);
 				if(d_leaderboard[j].boost1 == true) {
 					leaderboarddoc.innerHTML += "<img src='img/spider.png' height='32'>";
@@ -695,7 +695,7 @@ function checkSnailmaster(){
 		if(c_snailmaster == m_account) {
 			snailmasterdoc.textContent = "YOU!";
 		} else {
-		snailmasterdoc.textContent = formatEthAdr(c_snailmaster);
+		snailmasterdoc.textContent = formattrxAdr(c_snailmaster);
 		}
 	});
 }
@@ -716,7 +716,7 @@ function checkSpiderOwner(){
 		if(c_spiderowner == m_account) {
 			spiderownerdoc.textContent = "YOU!";
 		} else {
-		spiderownerdoc.textContent = formatEthAdr(c_spiderowner);
+		spiderownerdoc.textContent = formattrxAdr(c_spiderowner);
 		}
 	});
 }
@@ -737,7 +737,7 @@ function checkSquirrelOwner(){
 		if(c_squirrelowner == m_account) {
 			squirrelownerdoc.textContent = "YOU!";
 		} else {
-		squirrelownerdoc.textContent = formatEthAdr(c_squirrelowner);
+		squirrelownerdoc.textContent = formattrxAdr(c_squirrelowner);
 		}
 	});
 }
@@ -758,7 +758,7 @@ function checkTadpoleOwner(){
 		if(c_tadpoleowner == m_account) {
 			tadpoleownerdoc.textContent = "YOU!";
 		} else {
-			tadpoleownerdoc.textContent = formatEthAdr(c_tadpoleowner);
+			tadpoleownerdoc.textContent = formattrxAdr(c_tadpoleowner);
 		}
 	});
 }
@@ -767,7 +767,7 @@ function checkTadpoleOwner(){
 function updateTadpoleReq(){
 	var tadpolereqdoc = document.getElementById('tadpolereq');
 	tadpoleReq(function(req) {
-		a_tadpoleReq = formatEthValue2(tronWeb.fromWei(req, 'ether'));
+		a_tadpoleReq = formattrxValue2(tronWeb.fromWei(req, 'trxer'));
 		a_tadpoleReq = (parseFloat(a_tadpoleReq) + parseFloat(0.0001)).toFixed(6);
 		tadpolereqdoc.textContent = a_tadpoleReq;
 	});
@@ -802,7 +802,7 @@ function checkPotato(){
 function updateHarvestCost(){
 	var harvestcostdoc = document.getElementById('harvestcost');
 	ComputeHarvest(function(req) {
-		a_harvestCost = formatEthValue2(tronWeb.fromWei(req,'ether'));
+		a_harvestCost = formattrxValue2(tronWeb.fromWei(req,'trxer'));
 		a_harvestCost = (parseFloat(a_harvestCost) + parseFloat(0.0001)).toFixed(6);
 		harvestcostdoc.textContent = a_harvestCost;
 	});
@@ -878,9 +878,9 @@ function checkOwnsSlug(){
 	});
 }
 
-//Current ETH address in use
-function updateEthAccount(){
-	m_account = tronWeb.eth.accounts[0];
+//Current trx address in use
+function updatetrxAccount(){
+	m_account = tronWeb.trx.accounts[0];
 }
 
 //Current leader
@@ -890,8 +890,8 @@ function updateLeader(){
 	currentLeader(function(result) {
 		l_account = "0x" + result.substring(26,66);
 		if(l_account != m_account) {
-			leaderdoc.textContent = formatEthAdr(l_account) + " is ";
-			leader2doc.textContent = formatEthAdr(l_account);
+			leaderdoc.textContent = formattrxAdr(l_account) + " is ";
+			leader2doc.textContent = formattrxAdr(l_account);
 		}
 		else {
 			leaderdoc.textContent = "YOU are ";
@@ -917,13 +917,13 @@ function updatePlayerSnail(){
 	});
 }
 
-//Current ETH balance in contract
+//Current trx balance in contract
 function updateContractBalance(){
 	var contractbalancedoc = document.getElementById('contractbalance');
-	tronWeb.eth.getBalance(contractAddress, function(error, result) {
+	tronWeb.trx.getBalance(contractAddress, function(error, result) {
 		if(!error) {
 			//////////console.log(result);
-			a_contractBalance = formatEthValue(tronWeb.fromWei(result, 'ether'))
+			a_contractBalance = formattrxValue(tronWeb.fromWei(result, 'trxer'))
 			contractbalancedoc.textContent = a_contractBalance; 
 		} else {
 			////////console.log("didn't work");
@@ -946,7 +946,7 @@ function updateRound(){
 function updateSnailPot(){
 	var snailpotdoc = document.getElementById('snailpot');
 	snailPot(function(req) {
-		a_snailPot = formatEthValue(tronWeb.fromWei(req,'ether'));
+		a_snailPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
 		snailpotdoc.textContent = a_snailPot;
 	});
 }
@@ -955,7 +955,7 @@ function updateSnailPot(){
 function updateRoundPot(){
 	var roundpotdoc = document.getElementById('roundpot');
 	roundPot(function(req) {
-		a_roundPot = formatEthValue(tronWeb.fromWei(req,'ether'));
+		a_roundPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
 		roundpotdoc.textContent = a_roundPot;
 	});
 }
@@ -964,16 +964,16 @@ function updateRoundPot(){
 function updateEggPot(){
 	var eggpotdoc = document.getElementById('eggpot');
 	eggPot(function(req) {
-		a_eggPot = formatEthValue(tronWeb.fromWei(req,'ether'));
+		a_eggPot = formattrxValue(tronWeb.fromWei(req,'trxer'));
 		eggpotdoc.textContent = a_eggPot;
 	});
 }
 
 //Current throne pot
-function updateThronePot(){
+function updattrxronePot(){
 	var thronepotdoc = document.getElementById('thronepot');
 	thronePot(function(req) {
-		a_thronePot = formatEthValue(tronWeb.fromWei(req,'ether'));
+		a_thronePot = formattrxValue(tronWeb.fromWei(req,'trxer'));
 		thronepotdoc.textContent = a_thronePot;
 	});
 }
@@ -1006,7 +1006,7 @@ function updateMaxAcorn(){
 function updateAcornCost(){
 	var acorncostdoc = document.getElementById('acorncost');
 	ComputeAcornCost(function(req) {
-		a_acornCost = formatEthValue2(tronWeb.fromWei(req,'ether'));
+		a_acornCost = formattrxValue2(tronWeb.fromWei(req,'trxer'));
 		acorncostdoc.textContent = a_acornCost;
 	});
 }
@@ -1024,7 +1024,7 @@ function slowupdatePlayerEgg(){
 				} else {
 					z_playerEgg = 0;
 				}
-				s_playerEgg = formatEthValue(result);
+				s_playerEgg = formattrxValue(result);
 				a_playerEgg = s_playerEgg;
 				playereggdoc.textContent = a_playerEgg + ".000";
 			});
@@ -1041,7 +1041,7 @@ function slowupdatePlayerEgg(){
 function updatePlayerEgg(){
 	if(a_gameActive == true){
 		ComputeMyEgg(m_account, function(result) {
-			_result = formatEthValue(result);
+			_result = formattrxValue(result);
 			if(_result != o_playerEgg) {
 				a_playerEgg = _result;
 				o_playerEgg = _result;
@@ -1096,7 +1096,7 @@ function updatePlayerProd(){
 function updatePlayerBalance(){
 	var playerbalancedoc = document.getElementById('playerbalance');
 	GetMyBalance(function(req) {
-		playerbalancedoc.textContent = formatEthValue2(tronWeb.fromWei(req,'ether'));
+		playerbalancedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
 	});
 }	
 
@@ -1113,7 +1113,7 @@ function updatePlayerAcorn(){
 function updatePlayerShare(){
 	var playersharedoc = document.getElementById('playershare');
 	ComputeMyShare(function(req) {
-		playersharedoc.textContent = formatEthValue2(tronWeb.fromWei(req,'ether'));
+		playersharedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
 	});
 }
 
@@ -1156,7 +1156,7 @@ function updateRedHatch2(){
 //Buy estimate
 function updateBuyEstimate(){
 	var buyEstimatedoc = document.getElementById('buyestimate');
-	var weitospend = tronWeb.toWei(f_buy,'ether');
+	var weitospend = tronWeb.toWei(f_buy,'trxer');
 	ComputeBuy(weitospend, function(req) {
 		buyEstimatedoc.textContent = req;
 	});	
@@ -1166,7 +1166,7 @@ function updateBuyEstimate(){
 function updateSellEstimate(){
 	var sellEstimatedoc = document.getElementById('sellestimate');
 	ComputeSell(a_playerEgg, function(req) {
-		sellEstimatedoc.textContent = formatEthValue2(tronWeb.fromWei(req,'ether'));
+		sellEstimatedoc.textContent = formattrxValue2(tronWeb.fromWei(req,'trxer'));
 	});
 }
 
@@ -1204,7 +1204,7 @@ function webJoinRound(){
 
 //Fund tree
 function webFundTree(){
-    var weitospend = tronWeb.toWei(f_tree,'ether');
+    var weitospend = tronWeb.toWei(f_tree,'trxer');
     FundTree(weitospend, function(){
     });
 }
@@ -1217,7 +1217,7 @@ function webClaimShare(){
 
 //Buy starting snails
 function webGetStarter(){
-    var weitospend = tronWeb.toWei(0.004,'ether');
+    var weitospend = tronWeb.toWei(0.004,'trxer');
 	BuyStartingSnail(weitospend, function(){
 	});
 }
@@ -1237,7 +1237,7 @@ function webPayThrone(){
 //Hatch eggs
 function webHatchEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toWei(0.0008,'ether');
+		var weitospend = tronWeb.toWei(0.0008,'trxer');
 		HatchEgg(weitospend, function(){
 		});
 	} else {
@@ -1248,7 +1248,7 @@ function webHatchEgg(){
 //Buy eggs
 function webBuyEgg(){
 	if(a_gameActive == true) {
-		var weitospend = tronWeb.toWei(f_buy,'ether');
+		var weitospend = tronWeb.toWei(f_buy,'trxer');
 		BuyEgg(weitospend, function(){
 		});
 	} else {
@@ -1299,7 +1299,7 @@ function webBecomeSquirrelDuke(){
 //Become TadpolePrince
 function webBecomeTadpolePrince(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(f_prince,'ether');
+		var weitospend = tronWeb.toWei(f_prince,'trxer');
 		BecomeTadpolePrince(weitospend, function(){
 		});
 	} else {
@@ -1310,7 +1310,7 @@ function webBecomeTadpolePrince(){
 //Claim Red Harvest
 function webClaimRedHarvest(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(a_harvestCost,'ether');
+		var weitospend = tronWeb.toWei(a_harvestCost,'trxer');
 		GrabRedHarvest(weitospend, function(){
 		});
 	} else {
@@ -1341,7 +1341,7 @@ function webFindLettuce(){
 //Find Carrot
 function webFindCarrot(){
 	if(a_gameActive == true){
-		var weitospend = tronWeb.toWei(0.02,'ether');
+		var weitospend = tronWeb.toWei(0.02,'trxer');
 		FindCarrot(weitospend, function(){
 		});
 	} else {
@@ -1390,15 +1390,15 @@ function webAscendGod(){
 
 /* CONTRACT ABI */
  
-abiDefinition=[{"constant": true,"inputs": [],"name": "ACORN_PRICE","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "GetMyBalance","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "LETTUCE_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SPIDER_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "gotCarrot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeHarvest","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "playerRound","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "round","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetRed","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "ClaimAcornShare","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "JoinRound","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "BuyStartingSnail","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hatcherySnail","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasSlug","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "divPerAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_redAmount","type": "uint256"}],"name": "UseRedEgg","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_MIN_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasStartingSnail","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "base","type": "uint256"}],"name": "ComputeSquare","outputs": [{"name": "squareRoot","type": "uint256"}],"payable": false,"stateMutability": "pure","type": "function"},{"constant": false,"inputs": [],"name": "FundTree","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "_ether","type": "uint256"}],"name": "ComputeAcornBuy","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "redEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeAcornCost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "TADPOLE_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "roundPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "eggspent","type": "uint256"}],"name": "ComputeSell","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetSnail","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "lastHatch","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SNAILTHRONE","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "PayThrone","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "playerBalance","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ACORN_MULT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "ComputeMyEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "acorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindLettuce","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "SellEgg","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetLettuce","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSpiderQueen","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "snailPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BuyEgg","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetProd","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SQUIRREL_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "GetMyEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ROUND_DOWNTIME","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "GrabRedHarvest","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "HATCHING_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetSlug","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "snailmasterReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "STARTING_SNAIL_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "harvestStartTime","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSpiderOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SLUG_MIN_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "eggPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "HatchEgg","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "FROGKING_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BeginRound","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "marketEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeTadpolePrince","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "SNAILMASTER_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "dev","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "prodBoost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindCarrot","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "harvestStartCost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "WithdrawBalance","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "STARTING_SNAIL","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeMyShare","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentLeader","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSnailmaster","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_COUNT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "tadpoleReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "claimedShare","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "thronePot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "ethspent","type": "uint256"}],"name": "ComputeBuy","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "maxAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "spiderReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "TIME_TO_HATCH_1SNAIL","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "CARROT_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSquirrelDuke","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetCarrot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasLettuce","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "nextRoundStart","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_DURATION","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSnailmaster","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "GetMyRound","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "claimedEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_DUR_ROOT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "lettuceReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindSlug","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "squirrelReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "gameActive","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSquirrelOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentTadpoleOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"inputs": [{"name": "_hoursToLaunch","type": "uint256"}],"payable": false,"stateMutability": "nonpayable","type": "constructor"},{"payable": true,"stateMutability": "payable","type": "fallback"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eth","type": "uint256"},{"indexed": false,"name": "acorns","type": "uint256"}],"name": "FundedTree","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eth","type": "uint256"},{"indexed": false,"name": "acorns","type": "uint256"}],"name": "ClaimedShare","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "BecameMaster","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eth","type": "uint256"}],"name": "WithdrewBalance","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "Hatched","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "eth","type": "uint256"}],"name": "SoldEgg","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "eth","type": "uint256"},{"indexed": false,"name": "playereggs","type": "uint256"}],"name": "BoughtEgg","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "StartedSnailing","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "spiderreq","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "BecameQueen","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "squirrelreq","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "BecameDuke","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "tadpolereq","type": "uint256"}],"name": "BecamePrince","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "roundwinner","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "eth","type": "uint256"}],"name": "WonRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "round","type": "uint256"}],"name": "BeganRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "JoinedRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "eth","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "GrabbedHarvest","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "UsedRed","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"}],"name": "FoundSlug","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "lettucereq","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "FoundLettuce","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "FoundCarrot","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eth","type": "uint256"}],"name": "PaidThrone","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eth","type": "uint256"}],"name": "BoostedPot","type": "event"}]
+abiDefinition=[{"constant": true,"inputs": [],"name": "ACORN_PRICE","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "GetMyBalance","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "LETTUCE_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SPIDER_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "gotCarrot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeHarvest","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "playerRound","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "round","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetRed","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "ClaimAcornShare","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "JoinRound","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "BuyStartingSnail","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hatcherySnail","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasSlug","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "divPerAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_redAmount","type": "uint256"}],"name": "UseRedEgg","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_MIN_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasStartingSnail","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "base","type": "uint256"}],"name": "ComputeSquare","outputs": [{"name": "squareRoot","type": "uint256"}],"payable": false,"stateMutability": "pure","type": "function"},{"constant": false,"inputs": [],"name": "FundTree","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "_trxer","type": "uint256"}],"name": "ComputeAcornBuy","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "redEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeAcornCost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "TADPOLE_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "roundPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "eggspent","type": "uint256"}],"name": "ComputeSell","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetSnail","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "lastHatch","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SNAILTHRONE","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "PayThrone","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "playerBalance","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ACORN_MULT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "ComputeMyEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "acorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindLettuce","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "SellEgg","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetLettuce","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSpiderQueen","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "snailPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BuyEgg","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetProd","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SQUIRREL_BASE_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "GetMyEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ROUND_DOWNTIME","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "GrabRedHarvest","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "HATCHING_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetSlug","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "snailmasterReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "STARTING_SNAIL_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "harvestStartTime","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSpiderOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "SLUG_MIN_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "eggPot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "HatchEgg","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "FROGKING_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BeginRound","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "marketEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeTadpolePrince","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "SNAILMASTER_REQ","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "dev","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "prodBoost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindCarrot","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [],"name": "harvestStartCost","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "WithdrawBalance","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "STARTING_SNAIL","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "ComputeMyShare","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentLeader","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSnailmaster","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_COUNT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "tadpoleReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "claimedShare","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "thronePot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "trxspent","type": "uint256"}],"name": "ComputeBuy","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "maxAcorn","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "spiderReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "TIME_TO_HATCH_1SNAIL","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "CARROT_COST","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSquirrelDuke","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "adr","type": "address"}],"name": "GetCarrot","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "hasLettuce","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "nextRoundStart","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_DURATION","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "BecomeSnailmaster","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "GetMyRound","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "claimedEgg","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "HARVEST_DUR_ROOT","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "lettuceReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "FindSlug","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "squirrelReq","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "gameActive","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentSquirrelOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "currentTadpoleOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"inputs": [{"name": "_hoursToLaunch","type": "uint256"}],"payable": false,"stateMutability": "nonpayable","type": "constructor"},{"payable": true,"stateMutability": "payable","type": "fallback"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "trx","type": "uint256"},{"indexed": false,"name": "acorns","type": "uint256"}],"name": "FundedTree","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "trx","type": "uint256"},{"indexed": false,"name": "acorns","type": "uint256"}],"name": "ClaimedShare","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "BecameMaster","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "trx","type": "uint256"}],"name": "WithdrewBalance","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "Hatched","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "trx","type": "uint256"}],"name": "SoldEgg","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "trx","type": "uint256"},{"indexed": false,"name": "playereggs","type": "uint256"}],"name": "BoughtEgg","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "StartedSnailing","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "spiderreq","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "BecameQueen","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "squirrelreq","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "BecameDuke","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "tadpolereq","type": "uint256"}],"name": "BecamePrince","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "roundwinner","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "trx","type": "uint256"}],"name": "WonRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "round","type": "uint256"}],"name": "BeganRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "JoinedRound","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "trx","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "GrabbedHarvest","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "eggs","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"},{"indexed": false,"name": "hatchery","type": "uint256"}],"name": "UsedRed","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "snails","type": "uint256"}],"name": "FoundSlug","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"},{"indexed": false,"name": "lettucereq","type": "uint256"},{"indexed": false,"name": "playerreds","type": "uint256"}],"name": "FoundLettuce","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": true,"name": "round","type": "uint256"}],"name": "FoundCarrot","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "trx","type": "uint256"}],"name": "PaidThrone","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "player","type": "address"},{"indexed": false,"name": "trx","type": "uint256"}],"name": "BoostedPot","type": "event"}]
 
-var contractAbi = tronWeb.eth.contract(abiDefinition);
+var contractAbi = tronWeb.trx.contract(abiDefinition);
 var myContract = contractAbi.at(contractAddress);
 
 function ACORN_PRICE(callback){
 
     var outputData = myContract.ACORN_PRICE.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ACORN_PRICE ',tronWeb.toDecimal(result));
@@ -1415,7 +1415,7 @@ function GetMyBalance(callback){
     
    
     var outputData = myContract.GetMyBalance.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetMyBalance ',tronWeb.toDecimal(result));
@@ -1432,7 +1432,7 @@ function LETTUCE_BASE_REQ(callback){
     
    
     var outputData = myContract.LETTUCE_BASE_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('LETTUCE_BASE_REQ ',tronWeb.toDecimal(result));
@@ -1449,7 +1449,7 @@ function SPIDER_BASE_REQ(callback){
     
    
     var outputData = myContract.SPIDER_BASE_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SPIDER_BASE_REQ ',tronWeb.toDecimal(result));
@@ -1466,7 +1466,7 @@ function GetAcorn(adr,callback){
     
    
     var outputData = myContract.GetAcorn.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetAcorn ',tronWeb.toDecimal(result));
@@ -1483,7 +1483,7 @@ function gotCarrot(callback){
     
    
     var outputData = myContract.gotCarrot.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('gotCarrot ',tronWeb.toDecimal(result));
@@ -1500,7 +1500,7 @@ function ComputeHarvest(callback){
     
    
     var outputData = myContract.ComputeHarvest.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeHarvest ',tronWeb.toDecimal(result));
@@ -1517,7 +1517,7 @@ function playerRound(callback){
     
    
     var outputData = myContract.playerRound.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('playerRound ',tronWeb.toDecimal(result));
@@ -1534,7 +1534,7 @@ function round(callback){
     
    
     var outputData = myContract.round.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('round ',tronWeb.toDecimal(result));
@@ -1551,7 +1551,7 @@ function GetRed(adr,callback){
     
    
     var outputData = myContract.GetRed.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetRed ',tronWeb.toDecimal(result));
@@ -1568,7 +1568,7 @@ function ClaimAcornShare(callback){
     
    
     var outputData = myContract.ClaimAcornShare.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ClaimAcornShare ',result);
@@ -1585,7 +1585,7 @@ function JoinRound(callback){
     
    
     var outputData = myContract.JoinRound.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('JoinRound ',result);
@@ -1598,11 +1598,11 @@ function JoinRound(callback){
 }
 
 
-function BuyStartingSnail(eth,callback){
+function BuyStartingSnail(trx,callback){
     
    
     var outputData = myContract.BuyStartingSnail.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('BuyStartingSnail ',result);
@@ -1619,7 +1619,7 @@ function hatcherySnail(callback){
     
    
     var outputData = myContract.hatcherySnail.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('hatcherySnail ',tronWeb.toDecimal(result));
@@ -1636,7 +1636,7 @@ function hasSlug(callback){
     
    
     var outputData = myContract.hasSlug.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('hasSlug ',result);
@@ -1653,7 +1653,7 @@ function divPerAcorn(callback){
     
    
     var outputData = myContract.divPerAcorn.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('divPerAcorn ',tronWeb.toDecimal(result));
@@ -1670,7 +1670,7 @@ function UseRedEgg(_redAmount,callback){
     
    
     var outputData = myContract.UseRedEgg.getData(_redAmount);
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('UseRedEgg ',result);
@@ -1687,7 +1687,7 @@ function HARVEST_MIN_COST(callback){
     
    
     var outputData = myContract.HARVEST_MIN_COST.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('HARVEST_MIN_COST ',tronWeb.toDecimal(result));
@@ -1704,7 +1704,7 @@ function hasStartingSnail(callback){
     
    
     var outputData = myContract.hasStartingSnail.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('hasStartingSnail ',result);
@@ -1721,7 +1721,7 @@ function ComputeSquare(base,callback){
     
    
     var outputData = myContract.ComputeSquare.getData(base);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeSquare ',tronWeb.toDecimal(result));
@@ -1734,11 +1734,11 @@ function ComputeSquare(base,callback){
 }
 
 
-function FundTree(eth,callback){
+function FundTree(trx,callback){
     
    
     var outputData = myContract.FundTree.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('FundTree ',result);
@@ -1751,11 +1751,11 @@ function FundTree(eth,callback){
 }
 
 
-function ComputeAcornBuy(_ether,callback){
+function ComputeAcornBuy(_trxer,callback){
     
    
-    var outputData = myContract.ComputeAcornBuy.getData(_ether);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var outputData = myContract.ComputeAcornBuy.getData(_trxer);
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeAcornBuy ',tronWeb.toDecimal(result));
@@ -1772,7 +1772,7 @@ function redEgg(callback){
     
    
     var outputData = myContract.redEgg.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('redEgg ',tronWeb.toDecimal(result));
@@ -1789,7 +1789,7 @@ function ComputeAcornCost(callback){
     
    
     var outputData = myContract.ComputeAcornCost.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeAcornCost ',tronWeb.toDecimal(result));
@@ -1806,7 +1806,7 @@ function TADPOLE_BASE_REQ(callback){
     
    
     var outputData = myContract.TADPOLE_BASE_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('TADPOLE_BASE_REQ ',tronWeb.toDecimal(result));
@@ -1823,7 +1823,7 @@ function roundPot(callback){
     
    
     var outputData = myContract.roundPot.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('roundPot ',tronWeb.toDecimal(result));
@@ -1840,7 +1840,7 @@ function ComputeSell(eggspent,callback){
     
    
     var outputData = myContract.ComputeSell.getData(eggspent);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeSell ',tronWeb.toDecimal(result));
@@ -1857,7 +1857,7 @@ function GetSnail(adr,callback){
     
    
     var outputData = myContract.GetSnail.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetSnail ',tronWeb.toDecimal(result));
@@ -1874,7 +1874,7 @@ function lastHatch(callback){
     
    
     var outputData = myContract.lastHatch.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('lastHatch ',tronWeb.toDecimal(result));
@@ -1891,7 +1891,7 @@ function SNAILTHRONE(callback){
     
    
     var outputData = myContract.SNAILTHRONE.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SNAILTHRONE ',result);
@@ -1908,7 +1908,7 @@ function PayThrone(callback){
     
    
     var outputData = myContract.PayThrone.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('PayThrone ',result);
@@ -1925,7 +1925,7 @@ function playerBalance(callback){
     
    
     var outputData = myContract.playerBalance.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('playerBalance ',tronWeb.toDecimal(result));
@@ -1942,7 +1942,7 @@ function ACORN_MULT(callback){
     
    
     var outputData = myContract.ACORN_MULT.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ACORN_MULT ',tronWeb.toDecimal(result));
@@ -1959,7 +1959,7 @@ function ComputeMyEgg(adr,callback){
     
    
     var outputData = myContract.ComputeMyEgg.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeMyEgg ',tronWeb.toDecimal(result));
@@ -1976,7 +1976,7 @@ function acorn(callback){
     
    
     var outputData = myContract.acorn.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('acorn ',tronWeb.toDecimal(result));
@@ -1993,7 +1993,7 @@ function FindLettuce(callback){
     
    
     var outputData = myContract.FindLettuce.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('FindLettuce ',result);
@@ -2010,7 +2010,7 @@ function SellEgg(callback){
     
    
     var outputData = myContract.SellEgg.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SellEgg ',result);
@@ -2027,7 +2027,7 @@ function GetLettuce(adr,callback){
     
    
     var outputData = myContract.GetLettuce.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetLettuce ',result);
@@ -2044,7 +2044,7 @@ function BecomeSpiderQueen(callback){
     
    
     var outputData = myContract.BecomeSpiderQueen.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('BecomeSpiderQueen ',result);
@@ -2061,7 +2061,7 @@ function snailPot(callback){
     
    
     var outputData = myContract.snailPot.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('snailPot ',tronWeb.toDecimal(result));
@@ -2074,11 +2074,11 @@ function snailPot(callback){
 }
 
 
-function BuyEgg(eth,callback){
+function BuyEgg(trx,callback){
     
    
     var outputData = myContract.BuyEgg.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('BuyEgg ',result);
@@ -2095,7 +2095,7 @@ function GetProd(adr,callback){
     
    
     var outputData = myContract.GetProd.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetProd ',tronWeb.toDecimal(result));
@@ -2112,7 +2112,7 @@ function SQUIRREL_BASE_REQ(callback){
     
    
     var outputData = myContract.SQUIRREL_BASE_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SQUIRREL_BASE_REQ ',tronWeb.toDecimal(result));
@@ -2129,7 +2129,7 @@ function GetMyEgg(callback){
     
    
     var outputData = myContract.GetMyEgg.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetMyEgg ',tronWeb.toDecimal(result));
@@ -2146,7 +2146,7 @@ function ROUND_DOWNTIME(callback){
     
    
     var outputData = myContract.ROUND_DOWNTIME.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ROUND_DOWNTIME ',tronWeb.toDecimal(result));
@@ -2159,11 +2159,11 @@ function ROUND_DOWNTIME(callback){
 }
 
 
-function GrabRedHarvest(eth,callback){
+function GrabRedHarvest(trx,callback){
     
    
     var outputData = myContract.GrabRedHarvest.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('GrabRedHarvest ',result);
@@ -2180,7 +2180,7 @@ function HATCHING_COST(callback){
     
    
     var outputData = myContract.HATCHING_COST.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('HATCHING_COST ',tronWeb.toDecimal(result));
@@ -2197,7 +2197,7 @@ function GetSlug(adr,callback){
     
    
     var outputData = myContract.GetSlug.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetSlug ',result);
@@ -2214,7 +2214,7 @@ function snailmasterReq(callback){
     
    
     var outputData = myContract.snailmasterReq.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('snailmasterReq ',tronWeb.toDecimal(result));
@@ -2231,7 +2231,7 @@ function STARTING_SNAIL_COST(callback){
     
    
     var outputData = myContract.STARTING_SNAIL_COST.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('STARTING_SNAIL_COST ',tronWeb.toDecimal(result));
@@ -2248,7 +2248,7 @@ function harvestStartTime(callback){
     
    
     var outputData = myContract.harvestStartTime.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('harvestStartTime ',tronWeb.toDecimal(result));
@@ -2265,7 +2265,7 @@ function currentSpiderOwner(callback){
     
    
     var outputData = myContract.currentSpiderOwner.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('currentSpiderOwner ',result);
@@ -2282,7 +2282,7 @@ function SLUG_MIN_REQ(callback){
     
    
     var outputData = myContract.SLUG_MIN_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SLUG_MIN_REQ ',tronWeb.toDecimal(result));
@@ -2299,7 +2299,7 @@ function eggPot(callback){
     
    
     var outputData = myContract.eggPot.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('eggPot ',tronWeb.toDecimal(result));
@@ -2312,11 +2312,11 @@ function eggPot(callback){
 }
 
 
-function HatchEgg(eth,callback){
+function HatchEgg(trx,callback){
     
    
     var outputData = myContract.HatchEgg.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('HatchEgg ',result);
@@ -2333,7 +2333,7 @@ function FROGKING_REQ(callback){
     
    
     var outputData = myContract.FROGKING_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('FROGKING_REQ ',tronWeb.toDecimal(result));
@@ -2350,7 +2350,7 @@ function BeginRound(callback){
     
    
     var outputData = myContract.BeginRound.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('BeginRound ',result);
@@ -2367,7 +2367,7 @@ function marketEgg(callback){
     
    
     var outputData = myContract.marketEgg.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('marketEgg ',tronWeb.toDecimal(result));
@@ -2380,11 +2380,11 @@ function marketEgg(callback){
 }
 
 
-function BecomeTadpolePrince(eth,callback){
+function BecomeTadpolePrince(trx,callback){
     
    
     var outputData = myContract.BecomeTadpolePrince.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('BecomeTadpolePrince ',result);
@@ -2401,7 +2401,7 @@ function SNAILMASTER_REQ(callback){
     
    
     var outputData = myContract.SNAILMASTER_REQ.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('SNAILMASTER_REQ ',tronWeb.toDecimal(result));
@@ -2418,7 +2418,7 @@ function dev(callback){
     
    
     var outputData = myContract.dev.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('dev ',result);
@@ -2435,7 +2435,7 @@ function prodBoost(callback){
     
    
     var outputData = myContract.prodBoost.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('prodBoost ',tronWeb.toDecimal(result));
@@ -2448,11 +2448,11 @@ function prodBoost(callback){
 }
 
 
-function FindCarrot(eth,callback){
+function FindCarrot(trx,callback){
     
    
     var outputData = myContract.FindCarrot.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData,value: eth},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData,value: trx},
     function(error,result){
         if(!error){
             //////console.log('FindCarrot ',result);
@@ -2469,7 +2469,7 @@ function harvestStartCost(callback){
     
    
     var outputData = myContract.harvestStartCost.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('harvestStartCost ',tronWeb.toDecimal(result));
@@ -2486,7 +2486,7 @@ function WithdrawBalance(callback){
     
    
     var outputData = myContract.WithdrawBalance.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('WithdrawBalance ',result);
@@ -2503,7 +2503,7 @@ function STARTING_SNAIL(callback){
     
    
     var outputData = myContract.STARTING_SNAIL.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('STARTING_SNAIL ',tronWeb.toDecimal(result));
@@ -2520,7 +2520,7 @@ function ComputeMyShare(callback){
     
    
     var outputData = myContract.ComputeMyShare.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeMyShare ',tronWeb.toDecimal(result));
@@ -2537,7 +2537,7 @@ function currentLeader(callback){
     
    
     var outputData = myContract.currentLeader.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('currentLeader ',result);
@@ -2554,7 +2554,7 @@ function currentSnailmaster(callback){
     
    
     var outputData = myContract.currentSnailmaster.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('currentSnailmaster ',result);
@@ -2571,7 +2571,7 @@ function HARVEST_COUNT(callback){
     
    
     var outputData = myContract.HARVEST_COUNT.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('HARVEST_COUNT ',tronWeb.toDecimal(result));
@@ -2588,7 +2588,7 @@ function tadpoleReq(callback){
     
    
     var outputData = myContract.tadpoleReq.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('tadpoleReq ',tronWeb.toDecimal(result));
@@ -2605,7 +2605,7 @@ function claimedShare(callback){
     
    
     var outputData = myContract.claimedShare.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('claimedShare ',tronWeb.toDecimal(result));
@@ -2622,7 +2622,7 @@ function thronePot(callback){
     
    
     var outputData = myContract.thronePot.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('thronePot ',tronWeb.toDecimal(result));
@@ -2635,11 +2635,11 @@ function thronePot(callback){
 }
 
 
-function ComputeBuy(ethspent,callback){
+function ComputeBuy(trxspent,callback){
     
    
-    var outputData = myContract.ComputeBuy.getData(ethspent);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var outputData = myContract.ComputeBuy.getData(trxspent);
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('ComputeBuy ',tronWeb.toDecimal(result));
@@ -2656,7 +2656,7 @@ function maxAcorn(callback){
     
    
     var outputData = myContract.maxAcorn.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('maxAcorn ',tronWeb.toDecimal(result));
@@ -2673,7 +2673,7 @@ function spiderReq(callback){
     
    
     var outputData = myContract.spiderReq.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('spiderReq ',tronWeb.toDecimal(result));
@@ -2690,7 +2690,7 @@ function TIME_TO_HATCH_1SNAIL(callback){
     
    
     var outputData = myContract.TIME_TO_HATCH_1SNAIL.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('TIME_TO_HATCH_1SNAIL ',tronWeb.toDecimal(result));
@@ -2707,7 +2707,7 @@ function CARROT_COST(callback){
     
    
     var outputData = myContract.CARROT_COST.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('CARROT_COST ',tronWeb.toDecimal(result));
@@ -2724,7 +2724,7 @@ function BecomeSquirrelDuke(callback){
     
    
     var outputData = myContract.BecomeSquirrelDuke.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('BecomeSquirrelDuke ',result);
@@ -2741,7 +2741,7 @@ function GetCarrot(adr,callback){
     
    
     var outputData = myContract.GetCarrot.getData(adr);
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetCarrot ',tronWeb.toDecimal(result));
@@ -2758,7 +2758,7 @@ function hasLettuce(callback){
     
    
     var outputData = myContract.hasLettuce.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('hasLettuce ',result);
@@ -2775,7 +2775,7 @@ function nextRoundStart(callback){
     
    
     var outputData = myContract.nextRoundStart.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('nextRoundStart ',tronWeb.toDecimal(result));
@@ -2792,7 +2792,7 @@ function HARVEST_DURATION(callback){
     
    
     var outputData = myContract.HARVEST_DURATION.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('HARVEST_DURATION ',tronWeb.toDecimal(result));
@@ -2809,7 +2809,7 @@ function BecomeSnailmaster(callback){
     
    
     var outputData = myContract.BecomeSnailmaster.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('BecomeSnailmaster ',result);
@@ -2826,7 +2826,7 @@ function GetMyRound(callback){
     
    
     var outputData = myContract.GetMyRound.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('GetMyRound ',tronWeb.toDecimal(result));
@@ -2843,7 +2843,7 @@ function claimedEgg(callback){
     
    
     var outputData = myContract.claimedEgg.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('claimedEgg ',tronWeb.toDecimal(result));
@@ -2860,7 +2860,7 @@ function HARVEST_DUR_ROOT(callback){
     
    
     var outputData = myContract.HARVEST_DUR_ROOT.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('HARVEST_DUR_ROOT ',tronWeb.toDecimal(result));
@@ -2877,7 +2877,7 @@ function lettuceReq(callback){
     
    
     var outputData = myContract.lettuceReq.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('lettuceReq ',tronWeb.toDecimal(result));
@@ -2894,7 +2894,7 @@ function FindSlug(callback){
     
    
     var outputData = myContract.FindSlug.getData();
-    var endstr=tronWeb.eth.sendTransaction({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.sendTransaction({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('FindSlug ',result);
@@ -2911,7 +2911,7 @@ function squirrelReq(callback){
     
    
     var outputData = myContract.squirrelReq.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('squirrelReq ',tronWeb.toDecimal(result));
@@ -2928,7 +2928,7 @@ function gameActive(callback){
     
    
     var outputData = myContract.gameActive.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('gameActive ',result);
@@ -2945,7 +2945,7 @@ function currentSquirrelOwner(callback){
     
    
     var outputData = myContract.currentSquirrelOwner.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('currentSquirrelOwner ',result);
@@ -2962,7 +2962,7 @@ function currentTadpoleOwner(callback){
     
    
     var outputData = myContract.currentTadpoleOwner.getData();
-    var endstr=tronWeb.eth.call({to:contractAddress, from:null, data: outputData},
+    var endstr=tronWeb.trx.call({to:contractAddress, from:null, data: outputData},
     function(error,result){
         if(!error){
             //////console.log('currentTadpoleOwner ',result);
@@ -3081,7 +3081,7 @@ hatchEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " hatched " + result.args.eggs + " Eggs into " + result.args.snails + " Snails, and has " + result.args.hatchery + " Snails in total.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " hatched " + result.args.eggs + " Eggs into " + result.args.snails + " Snails, and has " + result.args.hatchery + " Snails in total.";
 			e_hatched.address = result.args.player;
 			e_hatched.hatchery = parseInt(result.args.hatchery); //seems to return an array/object
 			//////console.log("e_hatch is " + e_hatched.hatchery);
@@ -3098,7 +3098,7 @@ usedredEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " hatched " + result.args.eggs + " Reds into " + result.args.snails + " Snails, and has a total of " + result.args.hatchery + " Snails.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " hatched " + result.args.eggs + " Reds into " + result.args.snails + " Snails, and has a total of " + result.args.hatchery + " Snails.";
 			e_hatched.address = result.args.player;
 			e_hatched.hatchery = result.args.hatchery; //seems to return an array/object
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
@@ -3114,7 +3114,7 @@ fundedtreeEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " funded the EtherTree with " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH and receives " + result.args.acorns + " Acorns.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " funded the trxerTree with " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx and receives " + result.args.acorns + " Acorns.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3128,7 +3128,7 @@ claimedshareEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " claimed " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH thanks to his " + result.args.acorns + " Acorns.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " claimed " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx thanks to his " + result.args.acorns + " Acorns.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3142,7 +3142,7 @@ becamemasterEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] Bow down to " + formatEthAdr(result.args.player) + ", your new Snailmaster!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] Bow down to " + formattrxAdr(result.args.player) + ", your new Snailmaster!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3155,7 +3155,7 @@ withdrewbalanceEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " withdrew " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH from his balance.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " withdrew " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx from his balance.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3169,7 +3169,7 @@ soldeggEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " sold " + result.args.eggs + " Eggs for " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sold " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3182,7 +3182,7 @@ boughteggEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " bought " + result.args.eggs + " Eggs for " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH."; //inverted eggs and ETH in contract event
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " bought " + result.args.eggs + " Eggs for " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx."; //inverted eggs and trx in contract event
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3195,7 +3195,7 @@ startedsnailingEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] Welcome to our newest SnailFarmer, " + formatEthAdr(result.args.player) + "!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] Welcome to our newest SnailFarmer, " + formattrxAdr(result.args.player) + "!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3208,7 +3208,7 @@ becamequeenEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " becomes the SpiderQueen!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the SpiderQueen!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3221,7 +3221,7 @@ becamequeenEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " becomes the SquirrelDuke!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the SquirrelDuke!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3234,7 +3234,7 @@ becameprinceEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " becomes the TadpolePrince!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " becomes the TadpolePrince!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3247,7 +3247,7 @@ wonroundEvent.watch(function(error, result){
 		////////console.log(result);
 		//if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " WINS ROUND " + result.args.round + " AND EARNS " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " WINS ROUND " + result.args.round + " AND EARNS " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		//}
 	}
@@ -3273,7 +3273,7 @@ joinedroundEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " joins the fray, with " + result.args.playerreds + " Red Eggs.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " joins the fray, with " + result.args.playerreds + " Red Eggs.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3286,7 +3286,7 @@ grabbedharvestEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " grabbed the Red Harvest by spending " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " grabbed the Red Harvest by spending " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3299,7 +3299,7 @@ foundslugEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " sacrifices a colossal " + result.args.snails + " Snails and finds the Slug.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " sacrifices a colossal " + result.args.snails + " Snails and finds the Slug.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3312,7 +3312,7 @@ foundlettuceEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " spent " + a_lettuceReq + " Red Eggs to find a Lettuce.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " spent " + a_lettuceReq + " Red Eggs to find a Lettuce.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3325,7 +3325,7 @@ foundcarrotEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " found a Carrot for 0.02 ETH.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " found a Carrot for 0.02 trx.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3338,7 +3338,7 @@ paidthroneEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " paid tribute to the SnailThrone! " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH have been sent.";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " paid tribute to the SnailThrone! " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx have been sent.";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
@@ -3351,7 +3351,7 @@ boostedpotEvent.watch(function(error, result){
 		////////console.log(result);
 		if(checkHash(storetxhash, result.transactionHash) != 0) {
 			date24();
-			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formatEthAdr(result.args.player) + " makes a generous " + formatEthValue2(tronWeb.fromWei(result.args.eth,'ether')) + " ETH donation to the SnailPot. Next round is going to be sweet!";
+			eventlogdoc.innerHTML += "<br>[" + datetext + "] " + formattrxAdr(result.args.player) + " makes a generous " + formattrxValue2(tronWeb.fromWei(result.args.trx,'trxer')) + " trx donation to the SnailPot. Next round is going to be sweet!";
 			logboxscroll.scrollTop = logboxscroll.scrollHeight;
 		}
 	}
