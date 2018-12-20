@@ -895,7 +895,7 @@ function checkOwnsSlug(){
 
 //Current trx address in use
 function updatetrxAccount(){
-	m_account = tronWeb.trx.accounts[0];
+	m_account = tronWeb.trx.defaultAddress;
 }
 
 //Current leader
