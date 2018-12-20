@@ -11,6 +11,10 @@ async function waitForTronWeb(){
         setTimeout(waitForTronWeb, 1000);
     } else {
         myContract = await tronWeb.contract().at(contractAddress);
+		controlLoop();
+		controlLoopFast();
+		controlLoopSlow();
+		controlLoopEgg();
     }
 }
 
@@ -153,10 +157,6 @@ var d_leaderboard = [
 function main(){
 	waitForTronWeb();
     //console.log('Main loop started.');
-    controlLoop();
-	controlLoopFast();
-	controlLoopSlow();
-	controlLoopEgg();
 }
 
 //Main loop on 4 seconds
